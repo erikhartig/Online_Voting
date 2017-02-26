@@ -42,6 +42,15 @@ public class RSAEncryptionUtils {
 		i--;
 		return (int)i;
 	}
+	public static int getBlockSize(BigInteger n){
+		int i = 0;
+		BigInteger test = new BigInteger("2");
+		while(test.pow(i).compareTo(n)==-1){
+			i++;
+		}
+		i--;
+		return i;
+	}
 	public static String messageToBinary(String message, int minBits){
 		String finalMessage = "";
 		for(int x=0; x<message.length(); x++){
