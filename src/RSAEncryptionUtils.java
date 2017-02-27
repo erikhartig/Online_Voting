@@ -90,6 +90,24 @@ public class RSAEncryptionUtils {
 		}
 		return decimal;
 	}
+	
+	public static String decimalToBinaryBI(BigInteger numToConvert){
+		int bigestValue = 0;
+		String binary = "";
+		BigInteger twoBI = new BigInteger("2");
+		while(numToConvert.compareTo(twoBI.pow(bigestValue))==1)
+			bigestValue++;
+		
+		while(numToConvert.compareTo(BigInteger.ZERO) != 0){
+			if(numToConvert.compareTo(twoBI.pow(bigestValue)) == 1){
+				binary = binary + "1";
+			}
+			else{
+				binary = binary + "0";
+			}
+		}
+		return binary;
+	}
 
 	public static int charToDecimal(Character ch) {
 		return (int) ch;
