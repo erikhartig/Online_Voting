@@ -18,6 +18,11 @@ public class RSAEncrypter {
 		location = locationTemp;
 		blockSize = RSAEncryptionUtils.getBlockSize(n);
 	}
+	public RSAEncrypter(BigInteger nTemp, BigInteger eTemp){
+		n = nTemp;
+		e = eTemp;
+		blockSize = RSAEncryptionUtils.getBlockSize(n);
+	}
 	
 	public String RSAEncrypt(String message){
 		ArrayList<BigInteger> blocks = RSAEncryptionUtils.getBlocksBI(message, blockSize);
