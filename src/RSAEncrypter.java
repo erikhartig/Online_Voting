@@ -13,11 +13,6 @@ public class RSAEncrypter {
 	private String location;
 	private int blockSize;
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public RSAEncrypter(BigInteger nTemp, BigInteger eTemp, String locationTemp) {
 		n = nTemp;
 		e = eTemp;
@@ -33,9 +28,10 @@ public class RSAEncrypter {
 
 	public String RSAEncrypt(String message) {
 		ArrayList<BigInteger> blocks = RSAEncryptionUtils.getBlocksBI(message, blockSize);
+		System.out.println(blocks.toString());
 		String encryptedMessage = "";
-		for (int x = 0; blocks.size() < x; x++) {
-			String currentNumEncrypted = encryptBigInteger(blocks.get(x));
+		for (BigInteger block : blocks) {
+			String currentNumEncrypted = encryptBigInteger(block);
 			encryptedMessage = encryptedMessage + currentNumEncrypted;
 		}
 		return encryptedMessage;

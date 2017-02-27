@@ -17,6 +17,8 @@ public class RSAEncryptionUtils {
 		RSAEncrypter testEncrypter = new RSAEncrypter(publicKey.get(0), publicKey.get(1));
 		String cyphertext = testEncrypter.RSAEncrypt(plaintext);
 		
+		System.out.println("cyphertext: " + cyphertext);
+		
 		ArrayList<BigInteger> privateKey = keypair.getPrivateKey();
 		RSADecrypter testDecrypter = new RSADecrypter(privateKey.get(0), privateKey.get(1));
 		String hopefullyPlaintext = testDecrypter.RSADecrypt(cyphertext);
@@ -24,28 +26,18 @@ public class RSAEncryptionUtils {
 		System.out.println("Hopefully plaintext: " + hopefullyPlaintext);
 	}
 
-	public static ArrayList<Integer> getBlocks(String message, int blockSize) {
-		ArrayList<Integer> blocks = new ArrayList<Integer>();
-		while (message.length() > blockSize) {
-			String block = message.substring(0, blockSize);
-			Integer decimalBlock = binaryToDecimal(block);
-			blocks.add(decimalBlock);
-			message = message.substring(blockSize);
-		}
-		Integer decimalBlock = binaryToDecimal(message);
-		blocks.add(decimalBlock);
-		return blocks;
-	}
-
 	public static ArrayList<BigInteger> getBlocksBI(String message, int blockSize) {
 		ArrayList<BigInteger> blocks = new ArrayList<BigInteger>();
-		while (message.length() > blockSize) {
-			String block = message.substring(0, blockSize);
+		String binaryMessage = messageToBinary(message, 8);
+		System.out.println(binaryMessage);
+		
+		while (binaryMessage.length() > blockSize) {
+			String block = binaryMessage.substring(0, blockSize);
 			BigInteger decimalBlock = binaryToDecimalBI(block);
 			blocks.add(decimalBlock);
-			message = message.substring(blockSize);
+			binaryMessage = binaryMessage.substring(blockSize);
 		}
-		BigInteger decimalBlock = binaryToDecimalBI(message);
+		BigInteger decimalBlock = binaryToDecimalBI(binaryMessage);
 		blocks.add(decimalBlock);
 		return blocks;
 	}
@@ -90,9 +82,10 @@ public class RSAEncryptionUtils {
 
 	public static BigInteger binaryToDecimalBI(String binary) {
 		BigInteger decimal = BigInteger.ZERO;
+		BigInteger twoBI = new BigInteger("2");
 		for (int x = 0; x < binary.length(); x++) {
 			if (binary.charAt(binary.length() - x - 1) == '1') {
-				decimal = decimal.add(new BigInteger(((Double) Math.pow(2, (double) x)).toString()));
+				decimal = decimal.add(decimal = decimal.add(twoBI.pow(x)));
 			}
 		}
 		return decimal;
