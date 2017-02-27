@@ -28,7 +28,6 @@ public class RSAEncrypter {
 
 	public String RSAEncrypt(String message) {
 		ArrayList<BigInteger> blocks = RSAEncryptionUtils.getBlocksBI(message, blockSize);
-		System.out.println(blocks.toString());
 		String encryptedMessage = "";
 		for (BigInteger block : blocks) {
 			String currentNumEncrypted = encryptBigInteger(block);

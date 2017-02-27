@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class RSAEncryptionUtils {
 	public static void main(String args[]) {
-		String plaintext = "This is a secret message that is impossible to intercept";
+		String plaintext = "This is a secret message that is impossible to intercept also life if life is my mom bob uncle this bullshit whatever lolz";
 		System.out.println("Plaintext: " + plaintext);
 
 		RSAKeyPair keypair = new RSAKeyPair();
@@ -29,7 +29,6 @@ public class RSAEncryptionUtils {
 	public static ArrayList<BigInteger> getBlocksBI(String message, int blockSize) {
 		ArrayList<BigInteger> blocks = new ArrayList<BigInteger>();
 		String binaryMessage = messageToBinary(message, 8);
-		System.out.println(binaryMessage);
 		
 		while (binaryMessage.length() > blockSize) {
 			String block = binaryMessage.substring(0, blockSize);
@@ -65,7 +64,7 @@ public class RSAEncryptionUtils {
 		String finalMessage = "";
 		for (int x = 0; x < message.length(); x++) {
 			Character temp = message.charAt(x);
-			finalMessage = finalMessage + charToBinary(temp, 8) + " ";
+			finalMessage = finalMessage + charToBinary(temp, 8);
 		}
 		return finalMessage;
 	}
@@ -85,26 +84,28 @@ public class RSAEncryptionUtils {
 		BigInteger twoBI = new BigInteger("2");
 		for (int x = 0; x < binary.length(); x++) {
 			if (binary.charAt(binary.length() - x - 1) == '1') {
-				decimal = decimal.add(decimal = decimal.add(twoBI.pow(x)));
+				decimal =  decimal.add(twoBI.pow(x));
 			}
 		}
 		return decimal;
 	}
 	
 	public static String decimalToBinaryBI(BigInteger numToConvert){
-		int bigestValue = 0;
+		int biggestValue = 0;
 		String binary = "";
 		BigInteger twoBI = new BigInteger("2");
-		while(numToConvert.compareTo(twoBI.pow(bigestValue))==1)
-			bigestValue++;
+		while(numToConvert.compareTo(twoBI.pow(biggestValue))==1)
+			biggestValue++;
 		
-		while(numToConvert.compareTo(BigInteger.ZERO) != 0){
-			if(numToConvert.compareTo(twoBI.pow(bigestValue)) == 1){
+		while(numToConvert.compareTo(BigInteger.ZERO) > 0){
+			if(numToConvert.compareTo(twoBI.pow(biggestValue)) >= 0){
 				binary = binary + "1";
+				numToConvert = numToConvert.subtract(twoBI.pow(biggestValue));
 			}
 			else{
 				binary = binary + "0";
 			}
+			biggestValue--;
 		}
 		return binary;
 	}

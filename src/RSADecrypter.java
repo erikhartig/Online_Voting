@@ -17,32 +17,29 @@ public class RSADecrypter {
 		String decryptedMessage = "";
 		
 		BigInteger exponentiatedNum = new BigInteger(message).modPow(d, n);
-		System.out.println(exponentiatedNum.toString());
-		String binary = exponentiatedNum.toString(2);
-		System.out.println(binary);
-		
-		while (message.length() > blockSize) {
-			String block = message.substring(0, blockSize);
-			BigInteger decimalBlock = new BigInteger(block);
-			decryptedMessage = decryptedMessage + decryptBigInteger(decimalBlock);
-			message = message.substring(blockSize);
+		String binary = RSAEncryptionUtils.decimalToBinaryBI(exponentiatedNum);
+		while(binary.length()%8 !=0){
+			binary = binary + "0";
 		}
-		BigInteger decimalBlock = new BigInteger(message);
-		decryptedMessage = decryptedMessage + decryptBigInteger(decimalBlock);
+		
+		while (binary.length() > blockSize) {
+			String block = binary.substring(0, blockSize);
+			decryptedMessage = decryptedMessage + decryptBigInteger(block);
+			binary = binary.substring(blockSize);
+		}
+		decryptedMessage = decryptedMessage + decryptBigInteger(binary);
 		return decryptedMessage;
 	}
 
-	private String decryptBigInteger(BigInteger numToDecrypt) {
-		BigInteger exponentiatedNum = numToDecrypt.modPow(d, n);
-		String binary = exponentiatedNum.toString(2);
+	private String decryptBigInteger(String block) {
 		String message = "";
-		while (binary.length() > 32) {
-			int character = RSAEncryptionUtils.binaryToDecimal(binary.substring(0, 32));
+		while (block.length() > 8) {
+			int character = RSAEncryptionUtils.binaryToDecimal(block.substring(0, 8));
 			char charToBeAdded = (char) character;
-			binary = binary.substring(32);
+			block = block.substring(8);
 			message = message + charToBeAdded;
 		}
-		int character = RSAEncryptionUtils.binaryToDecimal(binary);
+		int character = RSAEncryptionUtils.binaryToDecimal(block);
 		char charToBeAdded = (char) character;
 		message = message + charToBeAdded;
 		return message;
