@@ -9,7 +9,7 @@ public class RSAEncryptionUtils {
 		RSAKeyPair keypair = new RSAKeyPair();
 		ArrayList<BigInteger> publicKey = keypair.getPublicKey();
 		RSAEncrypter testEncrypter = new RSAEncrypter(publicKey.get(0), publicKey.get(1));
-		String cyphertext = testencrypter.RSAEncrypt(plaintext);
+		String cyphertext = testEncrypter.RSAEncrypt(plaintext);
 		System.out.println("Cyphertext: " + cyphertext);
 	}
 	
