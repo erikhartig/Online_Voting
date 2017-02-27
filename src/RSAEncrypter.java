@@ -18,6 +18,7 @@ public class RSAEncrypter {
 		location = locationTemp;
 		blockSize = RSAEncryptionUtils.getBlockSize(n);
 	}
+	
 	public RSAEncrypter(BigInteger nTemp, BigInteger eTemp){
 		n = nTemp;
 		e = eTemp;

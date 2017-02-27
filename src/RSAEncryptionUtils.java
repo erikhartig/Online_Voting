@@ -3,10 +3,14 @@ import java.util.ArrayList;
 
 public class RSAEncryptionUtils {
 	public static void main(String args[]){
-		String test = "hello";
-		String binary = messageToBinary(test, 32);
-		System.out.println(binary);
-		System.out.println(binaryToDecimal("10101"));
+		String plaintext = "This is a secret message that is impossible to intercept";
+		System.out.println("Plaintext: " + plaintext);
+		
+		RSAKeyPair keypair = new RSAKeyPair();
+		ArrayList<BigInteger> publicKey = keypair.getPublicKey();
+		RSAEncrypter testEncrypter = new RSAEncrypter(publicKey.get(0), publicKey.get(1));
+		String cyphertext = testEncrypter.RSAEncrypt(plaintext);
+		System.out.println("Cyphertext: " + cyphertext);
 	}
 	
 	public static ArrayList<Integer> getBlocks(String message, int blockSize){
