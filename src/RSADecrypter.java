@@ -1,3 +1,8 @@
+//@Authors Owen Galvin and Erik Hartig
+//@Date 2/26/2017
+
+//This class uses a private key to dencrypt cyphertext messages into plaintext
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 

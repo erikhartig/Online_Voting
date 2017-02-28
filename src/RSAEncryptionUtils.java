@@ -29,6 +29,7 @@ public class RSAEncryptionUtils {
 		System.out.println("Hopefully plaintext: " + hopefullyPlaintext);
 */
 
+	//This method divides up the plaintext into blocks to be encrypted
 	public static ArrayList<BigInteger> getBlocksBI(String message, int blockSize) {
 		ArrayList<BigInteger> blocks = new ArrayList<BigInteger>();
 		String binaryMessage = messageToBinary(message, 8);
@@ -39,20 +40,13 @@ public class RSAEncryptionUtils {
 			blocks.add(decimalBlock);
 			binaryMessage = binaryMessage.substring(blockSize);
 		}
+		//if the last chunk of plaintext is smaller than the blocksize, add that chunk
 		BigInteger decimalBlock = binaryToDecimalBI(binaryMessage);
 		blocks.add(decimalBlock);
 		return blocks;
 	}
 
-	public static int getBlockSize(int n) {
-		double i = 0;
-		while (Math.pow(2, i) < n) {
-			i++;
-		}
-		i--;
-		return (int) i;
-	}
-
+	//This method calculates the blocksize that will be used based on modulus n
 	public static int getBlockSize(BigInteger n) {
 		int i = 0;
 		BigInteger test = new BigInteger("2");
@@ -63,6 +57,7 @@ public class RSAEncryptionUtils {
 		return i;
 	}
 
+	//This method converts the ascii message ot a binary string
 	public static String messageToBinary(String message, int minBits) {
 		String finalMessage = "";
 		for (int x = 0; x < message.length(); x++) {
@@ -72,6 +67,7 @@ public class RSAEncryptionUtils {
 		return finalMessage;
 	}
 
+	//This method converts a binary string to a decimal integer
 	public static int binaryToDecimal(String binary) {
 		int decimal = 0;
 		for (int x = 0; x < binary.length(); x++) {
@@ -82,6 +78,7 @@ public class RSAEncryptionUtils {
 		return decimal;
 	}
 
+	//This method converts a binary string to a BigInteger decimal
 	public static BigInteger binaryToDecimalBI(String binary) {
 		BigInteger decimal = BigInteger.ZERO;
 		BigInteger twoBI = new BigInteger("2");
@@ -93,6 +90,7 @@ public class RSAEncryptionUtils {
 		return decimal;
 	}
 	
+	//This method converts a BigInteger decimal to a binary string
 	public static String decimalToBinaryBI(BigInteger numToConvert){
 		int biggestValue = 0;
 		String binary = "";
@@ -113,10 +111,12 @@ public class RSAEncryptionUtils {
 		return binary;
 	}
 
+	//This method converts an ascii character to its decimal representation
 	public static int charToDecimal(Character ch) {
 		return (int) ch;
 	}
 
+	//This method converts a character to binary, adding 0s as padding if needed
 	public static String charToBinary(Character ch, int minBits) {
 		int numValue = (int) ch;
 		String noPadBinary = Integer.toBinaryString(numValue);
