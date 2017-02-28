@@ -7,8 +7,11 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class RSAEncryptionUtils {
-	public static void main(String args[]) {
-		String plaintext = "This is a secret message that is impossible to intercept also life if life is my mom bob uncle this bullshit whatever lolz";
+/*	
+ 		Here is an example of how to utilize this package to generate keys, encrypt a message with a public key, 
+ 		and decrypt it using the private key
+ 		
+ 		String plaintext = "This is a secret message that is impossible to decode";
 		System.out.println("Plaintext: " + plaintext);
 
 		RSAKeyPair keypair = new RSAKeyPair();
@@ -24,7 +27,7 @@ public class RSAEncryptionUtils {
 		String hopefullyPlaintext = testDecrypter.RSADecrypt(cyphertext);
 		
 		System.out.println("Hopefully plaintext: " + hopefullyPlaintext);
-	}
+*/
 
 	public static ArrayList<BigInteger> getBlocksBI(String message, int blockSize) {
 		ArrayList<BigInteger> blocks = new ArrayList<BigInteger>();
